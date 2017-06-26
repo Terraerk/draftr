@@ -65,6 +65,12 @@ module.exports.connections = {
   //   database: 'your_mongo_db_name_here' //optional
   // },
 
+    terraerkMongodbServer: {
+      adapter: 'sails-mongo',
+      host: 'localhost',
+      port: 27017,
+      database: 'terraerk_draft'
+    },
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *

@@ -1,0 +1,14 @@
+<table class="board team-board">
+    <tr class="team-name">Position</tr>
+    <% _.each(teams, function (team) { %>
+        <tr class="team-name"><%= team.name %></tr>
+    <% }) %>
+    <% _.each(positions, function (position) { %>
+        <td class="position-name"><%= position.name %></td>
+        <% _.each(position.data, function (data) { %>
+            <td class="claim-data">
+                <%- partial ('../partials/claim.ejs', { claim: data }) %>%>
+            </td>
+        <% }) %>
+    <% }) %>
+</table>

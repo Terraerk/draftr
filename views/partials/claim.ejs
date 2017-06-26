@@ -1,0 +1,14 @@
+<div class="claim player-<%= claim.player.position.toLowerCase() %>">
+    <% // which position the claim is for. e.g. QB, RB, etc %>
+    <div class="claim-position"><%= claim.player.position %></div>
+    <% // bye round for the player %>
+    <div class="claim-bye"><%= claim.player.bye %></div>
+    <% // first name of the player %>
+    <div class="claim-first-name"><%= claim.player.firstName %></div>
+    <% // last name of the player %>
+    <div class="claim-last-name"><%= claim.player.lastName %></div>
+    <% // Price of the player %>
+    <div class="claim-price"><%= claim.price %></div>
+    <% // Order that the player was chosen %>
+    <div class="claim-order"><%= claim.order %></div>
+</div>
