@@ -27,10 +27,17 @@ module.exports = {
     },
 
     join: function (req, res) {
-        sails.sockets.join(req, 'lobby', function() {
-            sails.log.debug('this happened');
-        });
-        return res.json({message: 'Doneski'});
+        if (req.isSocket) {
+            var room = req.param('room', null);
+            if (room === null) {
+                return res.error('No room passed!');
+            }
+            sails.sockets.join(req, 'lobby_' + room, function() {
+                sails.log.debug('this happened');
+            });
+            return res.json({message: 'Doneski'});
+        }
+        return res.error('Not a socket request!');
     }
 };
 

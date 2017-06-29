@@ -11,8 +11,10 @@ module.exports = {
         firstName: {type: 'string'},
         lastName: {type: 'string'},
         bye: {type: 'string'},
-        team: {type: 'string'},
-        position: {type: 'string'}
+        team: {model: 'team'},
+        position: {type: 'string'}, //E.g. RB, WR, QB
+        adp: {type: 'float'}, //average draft position overall. Not applicable for IDP
+        positionRanking: {type: 'integer'} //e.g. RB1, WR2, etc. Just the number
     }
 };
 

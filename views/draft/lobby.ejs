@@ -1,10 +1,8 @@
 <script type="text/javascript">
-    io.socket.on('draft', function(data) {
-        console.log('Something happened!');
-        console.log(data);
-    });
-    io.socket.get('/draft', function(data) {
-        console.log(data);
+    $(document).ready(function () {
+        io.socket.get('/draft', function (data) {
+            console.log(data);
+        });
     });
 </script>
-<div>This is the lobby. You will join!</div>
+

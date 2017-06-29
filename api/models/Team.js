@@ -10,11 +10,10 @@ module.exports = {
     attributes: {
 
         name: {type: 'string', required: true}, //Team name
-        draft: {model: 'Draft'}, //Which Draft
-        manager: {model: 'Manager'}, //Which Manager
+        draft: {model: 'draft'}, //Which Draft
+        manager: {model: 'manager'}, //Which Manager
         draftOrder: {type: 'integer'}, //Which order the Manager chooses
-        draftClaims: {collection: 'Claim'}, //Which players the Manager has claimed
-
+        draftClaims: {collection: 'claim'}, //Which players the Manager has claimed
 
         getRemainingBudget: function () {
             //Total budget of the draft, minus the cost of each claim
