@@ -23,19 +23,31 @@ module.exports = {
     },
 
     lobby: function (req, res) {
-        return res.view();
+        res.view();
+    },
+
+    room: function (req, res) {
+        var draftId = req.param('draft', null);
+        if (draftId === null) {
+            return res.location('/draft/lobby');
+        }
+
+        Draft.findOne({id: draftId}).exec(function(error, data){
+            if (error) return res.serverError(error);
+            return res.view({draft: data});
+        });
     },
 
     join: function (req, res) {
         if (req.isSocket) {
-            var room = req.param('room', null);
-            if (room === null) {
-                return res.error('No room passed!');
+            var draftId = req.param('draft', null);
+            if (draftId === null) {
+                return res.serverError('No draftId passed!');
             }
-            sails.sockets.join(req, 'lobby_' + room, function() {
+            sails.sockets.join(req, 'lobby_' + draftId, function() {
                 sails.log.debug('this happened');
             });
-            return res.json({message: 'Doneski'});
+            return res.ok();
         }
         return res.error('Not a socket request!');
     }

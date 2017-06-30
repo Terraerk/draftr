@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var params = {
+            draft: '<%= draft.id %>'
+        };
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                teams: [],
+                draft: <%- JSON.stringify(draft) %>
+            }
+        });
+
+        io.socket.get('/draft/join', params, function (data) {
+            console.log(data);
+        });
+
+        io.socket.get('/team?draft=<%= draft.id %>', function (data) {
+            console.log(data);
+            app.teams = data;
+        });
+    });
+
+</script>
+
+
+<div id="app">
+    <div class="row">
+        <div class="col">
+            Welcome to the draft! <%= draft.name %>!
+        </div>
+        <div class="col" v-for="team in teams">
+            <div class="team" v-bind:id="team.id">
+                <div class="draft-team-name">{{team.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>

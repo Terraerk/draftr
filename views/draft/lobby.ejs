@@ -39,10 +39,13 @@
     <div class="row">
         <div class="col" v-for="draft in drafts">
             <div class="draft" v-bind:id="draft.id">
-                <div class="draft-name">{{draft.name}}</div>
-                <div class="draft-teams" v-for="team in draft.teams">
-                    <div class="draft-team-name">{{team.name}}</div>
-                </div>
+                <span class="draft-name">{{draft.name}}</span>
+                <span class="draft-teams" v-for="team in draft.teams">
+                    <span class="draft-team-name">{{team.name}}</span>
+                </span>
+                <span class="draft-link">
+                    <a v-bind:href="'/draft/room?draft=' + draft.id">Join!</a>
+                </span>
             </div>
         </div>
     </div>
