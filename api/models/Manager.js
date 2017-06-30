@@ -16,6 +16,11 @@ module.exports = {
         },
         teams: {
             collection: 'team'
+        },
+        drafts: {
+            collection: 'draft',
+            via: 'manager',
+            through: 'team'
         }
     }
 };

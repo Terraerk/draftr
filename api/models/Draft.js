@@ -15,6 +15,7 @@ module.exports = {
         },
 
         teams: {collection: 'team'},
+        managers: {collection: 'manager', via: 'draft', through: 'team'},
 
         requiredPlayersQB: {type: 'integer', defaultsTo: 1},
         requiredPlayersRB: {type: 'integer', defaultsTo: 2},

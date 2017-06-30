@@ -1,12 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        Vue.directive('sp-grey', {
-            inserted: function (el) {
-                el.style.color = 'lightgrey';
-            }
-        });
-
         var app = new Vue({
             el: '#app',
             data: {
@@ -23,6 +17,17 @@
             console.log(event);
             if (event.verb === 'created') {
                 app.drafts.push(event.data);
+            } else if (event.verb === 'updated') {
+                io.socket.get('/draft/' + event.id, function (data) {
+                    console.log(data);
+                    app.drafts.splice(_.findIndex(app.drafts, function(item) {
+                        return item.id == data.id;
+                    }), 1, data);
+                });
+            } else if (event.verb === 'destroyed') {
+                app.drafts.splice(_.findIndex(app.drafts, function(item) {
+                    return item.id == event.id;
+                }), 1);
             }
         });
     });
@@ -32,9 +37,12 @@
 
 <div id="app">
     <div class="row">
-        <div class="col s12 m3" v-for="draft in drafts">
-            <div class="draft">
-                <div class="draft-name" v-sp-grey>{{draft.name}}</div>
+        <div class="col" v-for="draft in drafts">
+            <div class="draft" v-bind:id="draft.id">
+                <div class="draft-name">{{draft.name}}</div>
+                <div class="draft-teams" v-for="team in draft.teams">
+                    <div class="draft-team-name">{{team.name}}</div>
+                </div>
             </div>
         </div>
     </div>
