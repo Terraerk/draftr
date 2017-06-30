@@ -1,8 +1,41 @@
 <script type="text/javascript">
     $(document).ready(function () {
+
+        Vue.directive('sp-grey', {
+            inserted: function (el) {
+                el.style.color = 'lightgrey';
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                drafts: []
+            }
+        });
+
         io.socket.get('/draft', function (data) {
             console.log(data);
+            app.drafts = data;
+        });
+
+        io.socket.on('draft', function(event) {
+            console.log(event);
+            if (event.verb === 'created') {
+                app.drafts.push(event.data);
+            }
         });
     });
+
 </script>
 
+
+<div id="app">
+    <div class="row">
+        <div class="col s12 m3" v-for="draft in drafts">
+            <div class="draft">
+                <div class="draft-name" v-sp-grey>{{draft.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
